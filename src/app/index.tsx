@@ -1,6 +1,17 @@
 import { Redirect } from 'expo-router';
 
+import { useAuthStore } from '@/stores/authStore';
+
 export default function Index() {
-  // TODO: Verificar estado de autenticación y redirigir a login o al flujo autenticado
+  const { isAuthenticated, isHydrated } = useAuthStore();
+
+  if (!isHydrated) {
+    return null;
+  }
+
+  if (isAuthenticated) {
+    return <Redirect href="/(auth)" />;
+  }
+
   return <Redirect href="/login" />;
 }
