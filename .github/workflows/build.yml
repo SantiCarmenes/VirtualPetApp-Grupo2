@@ -9,6 +9,7 @@ jobs:
   build-android-apk:
     name: Build Android APK
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -26,7 +27,10 @@ jobs:
         uses: expo/expo-github-action@v8
         with:
           eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
+          token: ${{ secrets.EXPO_GO_TOKEN }}
+
+      - name: Check logged user
+        run: eas whoami
 
       - name: Build Android APK
         run: eas build --platform android --profile preview --non-interactive
